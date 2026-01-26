@@ -1,0 +1,3 @@
+<?php
+return ['project-id-version'=>'Madara','pot-creation-date'=>'2025-02-26 10:35+0700','po-revision-date'=>'2026-01-15 09:12+0000','last-translator'=>'','language-team'=>'Tiếng Việt','mime-version'=>'1.0','content-type'=>'text/plain; charset=UTF-8','content-transfer-encoding'=>'8bit','x-generator'=>'Loco https://localise.biz/','x-poedit-keywordslist'=>'_;gettext;gettext_noop;_e;esc_html__;esc_html_e;__;esc_attr__;esc_attr_e;_x;_n:1,2;_n','x-poedit-basepath'=>'..','x-poedit-searchpath-0'=>'.','x-poedit-searchpathexcluded-0'=>'*.js
+','report-msgid-bugs-to'=>'','language'=>'vi','plural-forms'=>'nplurals=1; plural=0;','x-loco-version'=>'2.8.1; wp-6.9; php-8.3.19','messages'=>[]];

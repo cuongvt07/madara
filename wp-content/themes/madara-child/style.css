@@ -228,31 +228,38 @@ ul.main-menu-search.nav-menu {
 
 
 /* =============================================
- * SWIPER CAROUSEL — FINAL FULL CSS
- * FIX ALL + WATERFALL STACK EFFECT
+ * SWIPER CAROUSEL — VITAMINKOO.COM STYLE
+ * 9 items total, 5 visible, infinite loop
  * ============================================= */
+
+:root {
+    --slider-color: #ffd6a5;
+    --slider-opacity-color: rgba(249, 120, 146, 0);
+}
 
 /* Container chính */
 .mad-carousel-section {
     width: 100%;
-    padding: 40px 0;
+    padding: 15px 0 35px;
     position: relative;
-    overflow: hidden;
+    background-size: cover;
+    background-position: center bottom;
 }
 
-/* Swiper Container - Rộng đủ 5 slides (280px x 5 = 1400px + spacing) */
+/* Main slider container */
 .mad-vertical-carousel {
     width: 100%;
-    max-width: 1400px;
-    /* 5 slides x 280px + khoảng cách */
-    height: 450px;
-    position: relative;
+    max-width: 1320px;
     margin: 0 auto;
-    padding: 0;
-    overflow: hidden;
-    /* Ẩn hoàn toàn slides ngoài */
+    padding-top: 35px;
+    padding-bottom: 0;
 }
 
+@media(max-width: 767px) {
+    .mad-vertical-carousel {
+        width: 97%;
+    }
+}
 
 /* Swiper Wrapper */
 .mad-vertical-carousel .swiper-wrapper {
@@ -263,73 +270,91 @@ ul.main-menu-search.nav-menu {
 }
 
 /* ============================================
-   FIX 1 — ẨN SLIDES HOÀN TOÀN (KHÔNG MỜ/RÚT)
-   Slides không visible biến mất ngay lập tức
+   SLIDES - LUÔN ĐÚNG 5 SLIDES
+   Dùng vw để tự động phóng to theo viewport
    ============================================ */
 
 .mad-vertical-carousel .swiper-slide {
-    width: 280px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.45s ease;
-    /* CHỈ transition transform, KHÔNG opacity */
+    width: 18vw !important;
+    /* 18% viewport width - đảm bảo chỉ 5 slides fit */
+    min-width: 200px;
+    /* Tối thiểu 200px */
+    height: 26vw !important;
+    /* Tỷ lệ dọc cao */
+    min-height: 300px;
+    /* Tối thiểu cao 300px */
     position: relative;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    flex-shrink: 0;
-
-    /* Ẩn hoàn toàn - không mờ, không transition */
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none;
+    overflow: hidden;
+    border-radius: 12px;
+    background-position: center;
+    background-size: cover;
+    transition: all 0.2s ease;
 }
 
-/* CHỈ hiện slides Swiper đánh dấu visible */
-.mad-vertical-carousel .swiper-slide-visible,
-.mad-vertical-carousel .swiper-slide-active,
-.mad-vertical-carousel .swiper-slide-next,
-.mad-vertical-carousel .swiper-slide-prev,
-.mad-vertical-carousel .swiper-slide-duplicate-active,
-.mad-vertical-carousel .swiper-slide-duplicate-next,
-.mad-vertical-carousel .swiper-slide-duplicate-prev {
+
+
+@media(max-width: 767px) {
+    .mad-vertical-carousel .swiper-slide {
+        width: 180px !important;
+        height: 260px !important;
+    }
+}
+
+@media(max-width: 500px) {
+    .mad-vertical-carousel .swiper-slide {
+        width: 150px !important;
+        height: 220px !important;
+    }
+}
+
+/* ============================================
+   ACTIVE SLIDE - NỔI BẬT NHẤT
+   ============================================ */
+
+/* Tất cả slides đều hiển thị */
+.mad-vertical-carousel .swiper-slide {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto;
 }
 
+/* ACTIVE SLIDE - To hơn, nổi bật */
+.mad-vertical-carousel .swiper-slide-active {
+    transform: scale(1.1) !important;
+    z-index: 10 !important;
+}
+
+/* Active slide hover effect */
+.mad-vertical-carousel .swiper-slide-active img:hover {
+    transform: scale(1.15);
+}
 
 /* ============================================
-   FIX 2 — OVERLAY CHE SLIDES NGOÀI ACTIVE
+   OVERLAY MỜ CHO SLIDES KHÔNG ACTIVE
    ============================================ */
 
-.mad-vertical-carousel .swiper-slide-visible:not(.swiper-slide-active)::before {
+/* Tất cả slides không active có overlay mờ */
+.mad-vertical-carousel .swiper-slide:not(.swiper-slide-active)::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    border-radius: 8px;
-    z-index: 1;
-    transition: opacity 0.35s ease;
+    background: rgba(0, 0, 0, 0.5);
+    /* Overlay đen 50% */
+    border-radius: 12px;
+    z-index: 2;
     pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-.mad-vertical-carousel .swiper-slide-active::before {
-    opacity: 0 !important;
+/* Active slide KHÔNG có overlay */
+.mad-vertical-carousel .swiper-slide-active::after {
+    display: none !important;
 }
 
-/* ============================================
-   WATERFALL STACK EFFECT — XẾP THÁC NƯỚC
-   ============================================ */
 
-/* Active — nổi nhất */
-/* .mad-vertical-carousel .swiper-slide-active {
-    transform: scale(1.08) translateY(0px) !important;
-    z-index: 5;
-} */
 
 /* ============================================
-   Slide Content
+   SLIDE CONTENT - VITAMINKOO STYLE
    ============================================ */
 
 .mad-vertical-carousel .swiper-slide .mad-slide-link {
@@ -337,32 +362,52 @@ ul.main-menu-search.nav-menu {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
-    transition: all 0.4s ease;
+    border-radius: 12px;
+    transition: all 0.2s ease;
     position: relative;
     z-index: 0;
-
     pointer-events: auto;
     -webkit-user-drag: none;
     user-drag: none;
 }
 
 .mad-vertical-carousel .swiper-slide img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
-    display: block;
-
+    border-radius: 12px;
+    transition: all 0.2s ease;
     pointer-events: none;
     user-drag: none;
     user-select: none;
 }
 
-/* Active shadow */
-.mad-vertical-carousel .swiper-slide-active .mad-slide-link {
-    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.45);
+/* Slide title - vitaminkoo style */
+.mad-vertical-carousel .swiper-slide h3 {
+    position: absolute;
+    bottom: 0;
+    display: none;
+    font-size: 22px;
+    color: #fff;
+    background: linear-gradient(to top, var(--slider-color), var(--slider-opacity-color));
+    text-shadow: -1px -1px 2px var(--slider-color), 2px 2px 3px var(--slider-color);
+    font-weight: 400;
+    transition: all 0.3s ease;
+    z-index: 3;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    line-height: 1;
+    margin-bottom: 0;
+    border-radius: 0 0 12px 12px;
+    padding: 45px 10px 6px;
+}
+
+/* Active slide shows title */
+.mad-vertical-carousel .swiper-slide-active h3 {
+    display: initial;
 }
 
 /* ============================================
@@ -420,42 +465,23 @@ ul.main-menu-search.nav-menu {
 }
 
 /* ============================================
-   Navigation Buttons - Lùi vào gần slides hơn
+   NAVIGATION BUTTONS - VITAMINKOO STYLE
    ============================================ */
 
 .mad-vertical-carousel .swiper-button-next,
 .mad-vertical-carousel .swiper-button-prev {
-    color: #fff;
-    background: none !important;
-    width: 48px;
-    height: 48px;
-    border-radius: 0;
-    backdrop-filter: none;
-    box-shadow: none;
-    opacity: 0.85;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    z-index: 15;
-}
-
-.mad-carousel-section {
-    background-color: #ffffff !important;
-}
-
-/* Vị trí buttons - gần slides hơn */
-.mad-vertical-carousel .swiper-button-prev {
-    left: 120px;
-    /* Lùi vào gần slides */
-}
-
-.mad-vertical-carousel .swiper-button-next {
-    right: 120px;
-    /* Lùi vào gần slides */
+    color: var(--blur-1-color, #333);
+    transition: all 0.2s ease;
 }
 
 .mad-vertical-carousel .swiper-button-next:hover,
 .mad-vertical-carousel .swiper-button-prev:hover {
-    background: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
+    color: var(--theme-color, #ff8a65);
+}
+
+/* Container overflow hidden để chỉ hiện 5 slides */
+.mad-vertical-carousel {
+    overflow: hidden !important;
 }
 
 

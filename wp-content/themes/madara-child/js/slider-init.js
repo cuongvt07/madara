@@ -63,34 +63,32 @@ jQuery(document).ready(function ($) {
             });
 
             const totalSlides = slidesData.length;
-            const loopedSlidesCount = Math.ceil(totalSlides / 2);
 
             // ============================================
-            // KHỞI TẠO SWIPER VỚI OVERLAP -80PX
+            // KHỞI TẠO SWIPER - 5 SLIDES CÂN ĐỐI
             // ============================================
             const verticalSwiper = new Swiper('.mad-vertical-carousel', {
                 effect: 'coverflow',
                 grabCursor: true,
                 centeredSlides: true,
-                slidesPerView: SLIDES_PER_VIEW,
+                slidesPerView: 'auto',  // AUTO - dựa vào CSS width
 
-                // ============================================
-                // CRITICAL: OVERLAP -80PX
-                // ============================================
-                spaceBetween: -60,  // Âm để slides chồng lên nhau rõ hơn
+                // Khoảng cách giữa slides
+                spaceBetween: 15,
 
+                // Infinite loop
                 loop: true,
-                loopedSlides: loopedSlidesCount,
-                loopAdditionalSlides: SLIDES_PER_VIEW,
+                loopedSlides: 5,  // Chỉ cần 5 slides cho loop
 
-                // Coverflow với stretch cân đối
+                // Coverflow effect - depth thấp để không bị lệch
                 coverflowEffect: {
                     rotate: 0,
-                    stretch: 40,  // QUAN TRỌNG: thêm stretch để cân trái/phải
-                    depth: 150,
-                    modifier: 1,
+                    stretch: 0,
+                    depth: 80,      // Giảm depth
+                    modifier: 1,    // Giảm modifier
                     slideShadows: false
                 },
+
 
                 navigation: {
                     nextEl: '.mad-vertical-carousel .swiper-button-next',
@@ -148,22 +146,30 @@ jQuery(document).ready(function ($) {
                 observeSlideChildren: true,
                 autoHeight: false,
                 cssMode: false,
-                initialSlide: 0,
+                initialSlide: 0,  // Bắt đầu từ 0, centeredSlides sẽ căn giữa
+
                 runCallbacksOnInit: true,
+                slideToClickedSlide: true,  // Click vào slide = active
 
                 // ============================================
                 // EVENT HANDLERS
                 // ============================================
                 on: {
                     init: function () {
-                        console.log('✅ Swiper with OVERLAP -80px initialized');
+                        console.log('✅ Swiper initialized');
                         console.log('  • Total slides:', this.slides.length);
-                        console.log('  • Real slides:', originalCount);
-                        console.log('  • Overlap: -80px');
+                        console.log('  • Active index:', this.activeIndex);
+                        console.log('  • Real index:', this.realIndex);
 
-                        this.update();
-                        this.slideTo(this.activeIndex, 0, false);
+                        // Force update classes sau 100ms
+                        var swiper = this;
+                        setTimeout(function () {
+                            swiper.update();
+                            swiper.updateSlides();
+                            swiper.updateSlidesClasses();
+                        }, 100);
                     },
+
 
                     slideChange: function () {
                         console.log('📍 Slide:', this.activeIndex);

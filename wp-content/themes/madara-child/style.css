@@ -5,5 +5,585 @@ Author:       Madara
 Author URI:   https://mangabooth.com/
 Template: madara
 Tags: one-column, two-columns, right-sidebar, custom-header, custom-menu, editor-style, featured-images, microformats, post-formats, rtl-language-support, sticky-post, translation-ready
-Version: 1.0.4
+Version: 1.0.5
 */
+
+/* --- Isolated Header Customization --- */
+
+.site-header.mad-custom-header {
+    background: transparent;
+    padding: 0;
+}
+
+/* Container Width Constraint (85% / 1200px) */
+.mad-custom-header .mad-header-block-1 .container-fluid,
+.mad-custom-header .mad-header-block-2 .container-fluid {
+    width: 85% !important;
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Block 1: Orange Top Bar */
+.mad-custom-header .mad-header-block-1 {
+    background: linear-gradient(90deg, #ffb38a 0%, #ff8a65 100%);
+    padding: 5px 0;
+    color: #fff;
+}
+
+.mad-custom-header .mad-header-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.mad-custom-header .mad-header-left {
+    flex: 0 0 25%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+}
+
+.mad-custom-header .mad-header-center {
+    flex: 0 0 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mad-custom-header .mad-header-right {
+    flex: 0 0 25%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+.mad-custom-header .mad-header-left>div {
+    margin-right: 15px;
+}
+
+.mad-custom-header .mad-header-left i {
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.mad-custom-header .menu-search::marker {
+    content: none !important;
+}
+
+.mad-custom-header .open-search-main-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 30px;
+    text-decoration: none;
+}
+
+.menu_icon__open>span {
+    width: 24px !important;
+}
+
+/* Logo Styling */
+.mad-custom-header .mad-header-center .logo img {
+    max-height: 40px;
+    display: inline-block;
+}
+
+ul.main-menu-search.nav-menu {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Sub Header Nav Reset */
+.mad-custom-header .mad-header-right .c-sub-header-nav {
+    background: transparent !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.mad-custom-header .mad-header-right i {
+    font-size: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* User Section & Buttons (Oval "Bẹt" Style) */
+.mad-custom-header .mad-user-section {
+    display: flex;
+    align-items: center;
+}
+
+.mad-custom-header .mad-user-section a {
+    color: #fff !important;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    width: auto;
+    min-width: 90px;
+    height: 32px;
+    margin-left: 8px;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    padding: 0 15px;
+}
+
+.mad-custom-header .mad-user-section a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff !important;
+}
+
+/* Block 2: White Bottom Bar (Navigation) */
+.mad-header-block-2 {
+    background: #fff !important;
+    padding: 5px 0;
+    box-shadow: none;
+    border-bottom: 1px solid #eee;
+}
+
+.mad-header-block-2 .main-navigation {
+    text-align: center;
+}
+
+.mad-header-block-2 .main-nav {
+    display: inline-flex !important;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.mad-header-block-2 .main-nav li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 12px;
+}
+
+.mad-header-block-2 .main-nav li a {
+    color: #000 !important;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.mad-header-block-2 .main-nav li a:hover {
+    color: #ff8a65 !important;
+}
+
+/* Base Theme Compatibility & Selection Fixes */
+.site-header:not(.mad-custom-header) .c-header__top,
+.c-sub-header-nav:not(.mad-header-right .c-sub-header-nav) {
+    display: none !important;
+}
+
+.mad-header-right .c-sub-nav_wrap,
+.mad-header-right .mad-user-section {
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+    .mad-header-block-2 {
+        display: none;
+    }
+
+    .mad-header-left,
+    .mad-header-right {
+        flex: none;
+    }
+
+    .mad-header-center {
+        flex: 1;
+    }
+
+    .mad-header-center .logo img {
+        max-height: 35px;
+    }
+}
+
+.site-header .main-navigation .main-navigation_wrap {
+    padding: 0 !important;
+}
+
+.main-navigation.style-1 {
+    background: #ffffff;
+}
+
+
+/* =============================================
+ * SWIPER CAROUSEL — FINAL FULL CSS
+ * FIX ALL + WATERFALL STACK EFFECT
+ * ============================================= */
+
+/* Container chính */
+.mad-carousel-section {
+    width: 100%;
+    padding: 40px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Swiper Container - Rộng đủ 5 slides (280px x 5 = 1400px + spacing) */
+.mad-vertical-carousel {
+    width: 100%;
+    max-width: 1400px;
+    /* 5 slides x 280px + khoảng cách */
+    height: 450px;
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    /* Ẩn hoàn toàn slides ngoài */
+}
+
+
+/* Swiper Wrapper */
+.mad-vertical-carousel .swiper-wrapper {
+    display: flex;
+    align-items: center;
+    transition-timing-function: ease-out;
+    will-change: transform;
+}
+
+/* ============================================
+   FIX 1 — ẨN SLIDES HOÀN TOÀN (KHÔNG MỜ/RÚT)
+   Slides không visible biến mất ngay lập tức
+   ============================================ */
+
+.mad-vertical-carousel .swiper-slide {
+    width: 280px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.45s ease;
+    /* CHỈ transition transform, KHÔNG opacity */
+    position: relative;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    flex-shrink: 0;
+
+    /* Ẩn hoàn toàn - không mờ, không transition */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none;
+}
+
+/* CHỈ hiện slides Swiper đánh dấu visible */
+.mad-vertical-carousel .swiper-slide-visible,
+.mad-vertical-carousel .swiper-slide-active,
+.mad-vertical-carousel .swiper-slide-next,
+.mad-vertical-carousel .swiper-slide-prev,
+.mad-vertical-carousel .swiper-slide-duplicate-active,
+.mad-vertical-carousel .swiper-slide-duplicate-next,
+.mad-vertical-carousel .swiper-slide-duplicate-prev {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto;
+}
+
+
+/* ============================================
+   FIX 2 — OVERLAY CHE SLIDES NGOÀI ACTIVE
+   ============================================ */
+
+.mad-vertical-carousel .swiper-slide-visible:not(.swiper-slide-active)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 8px;
+    z-index: 1;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+.mad-vertical-carousel .swiper-slide-active::before {
+    opacity: 0 !important;
+}
+
+/* ============================================
+   WATERFALL STACK EFFECT — XẾP THÁC NƯỚC
+   ============================================ */
+
+/* Active — nổi nhất */
+/* .mad-vertical-carousel .swiper-slide-active {
+    transform: scale(1.08) translateY(0px) !important;
+    z-index: 5;
+} */
+
+/* ============================================
+   Slide Content
+   ============================================ */
+
+.mad-vertical-carousel .swiper-slide .mad-slide-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 0;
+
+    pointer-events: auto;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+.mad-vertical-carousel .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+
+    pointer-events: none;
+    user-drag: none;
+    user-select: none;
+}
+
+/* Active shadow */
+.mad-vertical-carousel .swiper-slide-active .mad-slide-link {
+    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.45);
+}
+
+/* ============================================
+   FADE GRADIENT RÌA
+   ============================================ */
+
+.mad-carousel-section::before,
+.mad-carousel-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* KHÔNG CẦN FADE GRADIENT - overflow:hidden đã ẩn hoàn toàn */
+/*
+.mad-carousel-section::before {
+    left: 0;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0.9) 25%,
+            rgba(255, 255, 255, 0.65) 55%,
+            transparent 100%);
+}
+
+.mad-carousel-section::after {
+    right: 0;
+    background: linear-gradient(to left,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0.9) 25%,
+            rgba(255, 255, 255, 0.65) 55%,
+            transparent 100%);
+}
+*/
+
+
+/* Dark mode */
+.dark-theme .mad-carousel-section::before {
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.9) 25%,
+            rgba(0, 0, 0, 0.65) 55%,
+            transparent 100%);
+}
+
+.dark-theme .mad-carousel-section::after {
+    background: linear-gradient(to left,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.9) 25%,
+            rgba(0, 0, 0, 0.65) 55%,
+            transparent 100%);
+}
+
+/* ============================================
+   Navigation Buttons - Lùi vào gần slides hơn
+   ============================================ */
+
+.mad-vertical-carousel .swiper-button-next,
+.mad-vertical-carousel .swiper-button-prev {
+    color: #fff;
+    background: none !important;
+    width: 48px;
+    height: 48px;
+    border-radius: 0;
+    backdrop-filter: none;
+    box-shadow: none;
+    opacity: 0.85;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    z-index: 15;
+}
+
+.mad-carousel-section {
+    background-color: #ffffff !important;
+}
+
+/* Vị trí buttons - gần slides hơn */
+.mad-vertical-carousel .swiper-button-prev {
+    left: 120px;
+    /* Lùi vào gần slides */
+}
+
+.mad-vertical-carousel .swiper-button-next {
+    right: 120px;
+    /* Lùi vào gần slides */
+}
+
+.mad-vertical-carousel .swiper-button-next:hover,
+.mad-vertical-carousel .swiper-button-prev:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+
+/* ============================================
+   Drag UX Fix
+   ============================================ */
+
+.mad-vertical-carousel {
+    cursor: grab;
+}
+
+.mad-vertical-carousel:active,
+.mad-vertical-carousel.swiper-container-dragging {
+    cursor: grabbing !important;
+}
+
+.mad-vertical-carousel,
+.mad-vertical-carousel * {
+    user-select: none !important;
+}
+
+/* ============================================
+   Hide widget source
+   ============================================ */
+
+.mad-widget-source {
+    display: none !important;
+    position: absolute !important;
+    left: -9999px !important;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 1200px) {
+    .mad-vertical-carousel {
+        height: 400px;
+    }
+
+    .mad-vertical-carousel .swiper-slide {
+        width: 240px !important;
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mad-vertical-carousel {
+        height: 320px;
+    }
+
+    .mad-vertical-carousel .swiper-slide {
+        width: 200px !important;
+        height: 250px;
+    }
+
+    .mad-carousel-section::before,
+    .mad-carousel-section::after {
+        width: 100px;
+    }
+
+    .mad-vertical-carousel .swiper-slide-prev,
+    .mad-vertical-carousel .swiper-slide-next {
+        transform: scale(0.9) translateY(16px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .mad-vertical-carousel {
+        height: 280px;
+        padding: 0 40px;
+    }
+
+    .mad-vertical-carousel .swiper-slide {
+        width: 160px !important;
+        height: 200px;
+    }
+
+    .mad-carousel-section::before,
+    .mad-carousel-section::after {
+        width: 80px;
+    }
+
+    .mad-vertical-carousel .swiper-slide-prev,
+    .mad-vertical-carousel .swiper-slide-next {
+        transform: scale(0.85) translateY(14px) !important;
+    }
+}
+
+/* ============================================
+   FORCE REAL STACK LAYERING (THÁC NƯỚC THẬT)
+   ============================================ */
+
+/* Center vertical properly */
+.mad-vertical-carousel {
+    display: flex;
+    align-items: center !important;
+}
+
+/* Wrapper center */
+.mad-vertical-carousel .swiper-wrapper {
+    align-items: center !important;
+}
+
+/* .mad-vertical-carousel .swiper-wrapper {
+    transform: translate3d(0, 0, 0) !important;
+} */
+
+/* .mad-vertical-carousel .swiper-slide-prev {
+    transform: translateX(-12px) scale(0.95) !important;
+}
+
+.mad-vertical-carousel .swiper-slide-next {
+    transform: translateX(12px) scale(0.95) !important;
+} */
+
+
+/* ACTIVE — NỔI CAO NHẤT */
+.mad-vertical-carousel .swiper-slide-active {
+    z-index: 6 !important;
+}
+
+/* SHADOW DEPTH BOOST */
+.mad-vertical-carousel .swiper-slide-prev .mad-slide-link,
+.mad-vertical-carousel .swiper-slide-next .mad-slide-link {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+.mad-vertical-carousel .swiper-slide-active .mad-slide-link {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}

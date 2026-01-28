@@ -239,13 +239,25 @@ jQuery(document).ready(function ($) {
                     click: function (swiper, event) {
                         const touchDuration = Date.now() - swiper.touchStartTime;
 
+                        // Nếu đang drag thì bỏ qua
                         if (touchDuration > 200 || swiper.isDragging) {
                             event.preventDefault();
                             event.stopPropagation();
-                            event.stopImmediatePropagation();
                             return false;
                         }
+
+                        // Tìm slide được click
+                        const clickedSlide = $(event.target).closest('.swiper-slide');
+                        if (!clickedSlide.length) return;
+
+                        // Tìm link trong slide
+                        const link = clickedSlide.find('.mad-slide-link');
+                        if (link.length && link.attr('href')) {
+                            // Click vào BẤT KỲ slide nào đều mở link
+                            window.location.href = link.attr('href');
+                        }
                     },
+
 
                     transitionEnd: function () {
                         this.update();

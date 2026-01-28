@@ -318,16 +318,20 @@ ul.main-menu-search.nav-menu {
     pointer-events: auto;
 }
 
-/* ACTIVE SLIDE - To hơn, nổi bật */
+/* ACTIVE SLIDE - To hơn, nổi bật, bo góc */
 .mad-vertical-carousel .swiper-slide-active {
     transform: scale(1.1) !important;
     z-index: 10 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
 }
 
-/* Active slide hover effect */
-.mad-vertical-carousel .swiper-slide-active img:hover {
-    transform: scale(1.15);
+
+/* Active slide hover effect - hover vào link thì zoom img */
+.mad-vertical-carousel .swiper-slide-active .mad-slide-link:hover img {
+    transform: scale(1.1);
 }
+
 
 /* ============================================
    OVERLAY MỜ CHO SLIDES KHÔNG ACTIVE

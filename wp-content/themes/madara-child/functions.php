@@ -1,5 +1,12 @@
 <?php
 add_action('wp_enqueue_scripts', 'madara_scripts_styles_child_theme');
+
+// Register Custom Widgets
+add_action('widgets_init', function () {
+	require_once get_stylesheet_directory() . '/widgets/class-widget-new-updates.php';
+	register_widget('Madara_Child_Widget_New_Updates');
+});
+
 function madara_scripts_styles_child_theme()
 {
 	$theme = wp_get_theme();
@@ -76,3 +83,26 @@ add_filter('the_content', function ($content) {
  */
 add_filter('widget_text', 'do_shortcode');
 add_filter('widget_text_content', 'do_shortcode');
+
+/**
+ * Filter to force d/m/Y date format in manga chapters (New Updates / Widget)
+ */
+add_filter('madara_archive_chapter_date', function ($time_diff, $chapter_id, $date, $link) {
+	if (!empty($date)) {
+		// Calculate time difference in seconds
+		$diff = time() - strtotime($date);
+		// If less than 3 days (259200 seconds), show NEW badge
+		if ($diff < 259200) {
+			$time_ago = human_time_diff(strtotime($date), current_time('timestamp')) . ' ago';
+			// Return exact HTML structure requested by user for NEW items
+			return sprintf(
+				'<a href="%s" title="%s" class="c-new-tag"><!-- --></a>',
+				esc_url($link),
+				esc_attr($time_ago)
+			);
+		}
+		// Otherwise show d/m/Y date
+		return date('d/m/Y', strtotime($date));
+	}
+	return $time_diff;
+}, 20, 4);

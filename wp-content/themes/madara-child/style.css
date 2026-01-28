@@ -339,17 +339,25 @@ ul.main-menu-search.nav-menu {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
-    /* Overlay đen 50% */
     border-radius: 12px;
     z-index: 2;
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
 
+/* MOBILE: Tắt transition overlay để không bị mờ khi chuyển */
+@media (max-width: 768px) {
+    .mad-vertical-carousel .swiper-slide:not(.swiper-slide-active)::after {
+        transition: none !important;
+        /* Chuyển ngay lập tức */
+    }
+}
+
 /* Active slide KHÔNG có overlay */
 .mad-vertical-carousel .swiper-slide-active::after {
     display: none !important;
 }
+
 
 
 
@@ -529,47 +537,37 @@ ul.main-menu-search.nav-menu {
 }
 
 @media (max-width: 768px) {
+
+    /* MOBILE: Container padding để không bị cắt */
     .mad-vertical-carousel {
-        height: 320px;
+        height: auto;
+        min-height: 350px;
+        padding-top: 30px !important;
+        padding-bottom: 20px !important;
     }
 
+    /* MOBILE: Slide to 65vw = 2/3 màn hình */
     .mad-vertical-carousel .swiper-slide {
-        width: 200px !important;
-        height: 250px;
+        width: 65vw !important;
+        height: 85vw !important;
+        min-width: 180px;
+        min-height: 250px;
     }
 
+    /* Ẩn gradient fade trên mobile */
     .mad-carousel-section::before,
     .mad-carousel-section::after {
-        width: 100px;
-    }
-
-    .mad-vertical-carousel .swiper-slide-prev,
-    .mad-vertical-carousel .swiper-slide-next {
-        transform: scale(0.9) translateY(16px) !important;
+        display: none;
     }
 }
 
 @media (max-width: 480px) {
-    .mad-vertical-carousel {
-        height: 280px;
-        padding: 0 40px;
-    }
-
     .mad-vertical-carousel .swiper-slide {
-        width: 160px !important;
-        height: 200px;
-    }
-
-    .mad-carousel-section::before,
-    .mad-carousel-section::after {
-        width: 80px;
-    }
-
-    .mad-vertical-carousel .swiper-slide-prev,
-    .mad-vertical-carousel .swiper-slide-next {
-        transform: scale(0.85) translateY(14px) !important;
+        width: 65vw !important;
+        height: 90vw !important;
     }
 }
+
 
 /* ============================================
    FORCE REAL STACK LAYERING (THÁC NƯỚC THẬT)

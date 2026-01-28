@@ -89,6 +89,35 @@ jQuery(document).ready(function ($) {
                     slideShadows: false
                 },
 
+                // BREAKPOINTS - Chỉ mobile mới overlap
+                breakpoints: {
+                    // Mobile (< 768px): slides chồng lên nhau + buffer lớn
+                    0: {
+                        spaceBetween: -60,  // Âm = chồng lên nhau
+                        loopedSlides: 10,   // Buffer lớn để không bị trắng
+                        loopAdditionalSlides: 10,
+                        speed: 300,         // Nhanh hơn
+                        coverflowEffect: {
+                            rotate: 0,
+                            stretch: 0,
+                            depth: 100,
+                            modifier: 1,
+                            slideShadows: false
+                        }
+                    },
+
+                    // PC (>= 768px): giữ nguyên spacing
+                    768: {
+                        spaceBetween: 15,   // Dương = thoáng
+                        coverflowEffect: {
+                            rotate: 0,
+                            stretch: 0,
+                            depth: 80,
+                            modifier: 1,
+                            slideShadows: false
+                        }
+                    }
+                },
 
                 navigation: {
                     nextEl: '.mad-vertical-carousel .swiper-button-next',

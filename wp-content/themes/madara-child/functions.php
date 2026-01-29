@@ -222,16 +222,16 @@ add_shortcode('manga_new_updates', function ($atts) {
 				</div>
 			</div>
 
-			<?php if ($atts['pagination']): ?>
-				<div class="mad-pagination text-left">
+			<?php if ($atts['pagination'] && $q->max_num_pages > 1): ?>
+				<div class="mad-pagination text-right">
 					<?php
 					echo paginate_links([
 						'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
 						'format' => '?paged=%#%',
 						'current' => max(1, $paged),
 						'total' => $q->max_num_pages,
-						'mid_size' => 2,
-						'end_size' => 1,
+						'mid_size' => 1,  // ← GIẢM XUỐNG 1 để dễ xuất hiện dots
+						'end_size' => 1,  // ← Giữ nguyên 1
 						'prev_text' => '<i class="icon ion-ios-arrow-back"></i>',
 						'next_text' => '<i class="icon ion-ios-arrow-forward"></i>',
 					]);

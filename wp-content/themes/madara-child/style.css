@@ -846,3 +846,27 @@ body.page .c-page-content .c-page .c-page__content .page-content-listing .page-l
 .widget.c-popular .popular-item-wrap .popular-content span.text {
     display: inline-block;
 }
+
+/* Completed Manga - View More Button */
+.view-more {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.view-more a {
+    background: #ffe7ca;
+    padding: 7px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    color: #945422;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.view-more a:hover {
+    background: #ffd6a5;
+    /* Slightly darker on hover */
+    color: #333;
+    text-decoration: none;
+}

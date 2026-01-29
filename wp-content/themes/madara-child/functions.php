@@ -277,87 +277,204 @@ function madara_vitaminkoo_ranking_shortcode()
 
 					<div class="tab-content">
 
-							<?php
-							$tabs = [
-								'today_rank' => 'day',
-								'week_rank' => 'week',
-								'month_rank' => 'month'
-							];
+						<?php
+						$tabs = [
+							'today_rank' => 'day',
+							'week_rank' => 'week',
+							'month_rank' => 'month'
+						];
 
-							foreach ($tabs as $tab_id => $time_key):
-								?>
+						foreach ($tabs as $tab_id => $time_key):
+							?>
 
-									<div id="<?php echo $tab_id; ?>"
+							<div id="<?php echo $tab_id; ?>"
 								class="tab-pane <?php echo $time_key === 'day' ? 'active' : ''; ?>">
 								<div class="c-widget-content style-1">
 
-											<?php
-											// Primary query: time-specific views
-											$args = [
-												'post_type' => 'wp-manga',
-												'posts_per_page' => 5,
-												'meta_key' => "_wp_manga_{$time_key}_views_value",
-												'orderby' => 'meta_value_num',
-												'order' => 'DESC'
-											];
+									<?php
+									// Primary query: time-specific views
+									$args = [
+										'post_type' => 'wp-manga',
+										'posts_per_page' => 5,
+										'meta_key' => "_wp_manga_{$time_key}_views_value",
+										'orderby' => 'meta_value_num',
+										'order' => 'DESC'
+									];
 
-											$query = new WP_Query($args);
+									$query = new WP_Query($args);
 
-											// Fallback: if no results, use total views
-											if (!$query->have_posts()) {
-												$args['meta_key'] = '_wp_manga_views';
-												$query = new WP_Query($args);
-											}
+									// Fallback: if no results, use total views
+									if (!$query->have_posts()) {
+										$args['meta_key'] = '_wp_manga_views';
+										$query = new WP_Query($args);
+									}
 
-											// Fallback 2: if still no results, order by modified date
-											if (!$query->have_posts()) {
-												unset($args['meta_key']);
-												$args['orderby'] = 'modified';
-												$query = new WP_Query($args);
-											}
-											$rank = 1;
+									// Fallback 2: if still no results, order by modified date
+									if (!$query->have_posts()) {
+										unset($args['meta_key']);
+										$args['orderby'] = 'modified';
+										$query = new WP_Query($args);
+									}
+									$rank = 1;
 
-											while ($query->have_posts()):
-												$query->the_post();
-												$thumb = get_the_post_thumbnail_url(get_the_ID(), 'manga_wg_post_1');
-												$genres = get_the_term_list(get_the_ID(), 'wp-manga-genre', '', ', ');
-												?>
-													<div class="popular-item-wrap">
-														<div class="ctr"><?php echo $rank; ?></div>
+									while ($query->have_posts()):
+										$query->the_post();
+										$thumb = get_the_post_thumbnail_url(get_the_ID(), 'manga_wg_post_1');
+										$genres = get_the_term_list(get_the_ID(), 'wp-manga-genre', '', ', ');
+										?>
+										<div class="popular-item-wrap">
+											<div class="ctr"><?php echo $rank; ?></div>
 
-														<div class="popular-img widget-thumbnail c-image-hover">
-															<a href="<?php the_permalink(); ?>">
-																<img src="<?php echo esc_url($thumb); ?>">
-															</a>
-														</div>
+											<div class="popular-img widget-thumbnail c-image-hover">
+												<a href="<?php the_permalink(); ?>">
+													<img src="<?php echo esc_url($thumb); ?>">
+												</a>
+											</div>
 
-														<div class="popular-content">
-															<h5 class="widget-title">
-																<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-															</h5>
+											<div class="popular-content">
+												<h5 class="widget-title">
+													<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+												</h5>
 
-															<span class="text">
-																<strong>Thể loại:</strong> <?php echo $genres; ?>
-															</span>
-														</div>
-													</div>
-
-													<?php $rank++; endwhile;
-											wp_reset_postdata(); ?>
-
+												<span class="text">
+													<strong>Thể loại:</strong> <?php echo $genres; ?>
+												</span>
+											</div>
 										</div>
-									</div>
 
-							<?php endforeach; ?>
+										<?php $rank++; endwhile;
+									wp_reset_postdata(); ?>
 
-						</div>
+								</div>
+							</div>
+
+						<?php endforeach; ?>
+
 					</div>
-
 				</div>
+
 			</div>
 		</div>
+	</div>
 
-		<?php
-		return ob_get_clean();
+	<?php
+	return ob_get_clean();
 }
 add_shortcode('madara_vitaminkoo_ranking', 'madara_vitaminkoo_ranking_shortcode');
+
+/**
+ * Shortcode: [madara_vitaminkoo_completed]
+ * Hiển thị truyện đã hoàn thành (không phân trang, có nút xem thêm)
+ */
+add_shortcode('madara_vitaminkoo_completed', function ($atts) {
+
+	if (!class_exists('WP_MANGA'))
+		return;
+
+	global $wp_manga_template;
+
+	$atts = shortcode_atts([
+		'title' => 'TRUYỆN ĐÃ HOÀN THÀNH',
+		'posts_per_page' => 12,
+		'columns' => 6,
+		'style' => 'style-1',
+		'show_badges' => 1,
+		'show_chapter_count' => 1,
+		'show_update_date' => 1,
+		'button_text' => 'Xem thêm',
+		'button_url' => 'https://vitaminkoo.com/hoan-thanh'
+	], $atts);
+
+	// Query Completed Manga
+	$q = new WP_Query([
+		'post_type' => 'wp-manga',
+		'post_status' => 'publish',
+		'posts_per_page' => (int) $atts['posts_per_page'],
+		'orderby' => 'modified', // Or 'date'
+		'order' => 'DESC',
+		'meta_query' => [
+			[
+				'key' => '_wp_manga_status',
+				'value' => ['end', 'completed', 'complete'], // Support variations
+				'compare' => 'IN'
+			]
+		]
+	]);
+
+	// Column Class
+	$col_class = 'col-md-2 col-sm-4 col-xs-6'; // Default 6 cols
+	if ($atts['columns'] == 4)
+		$col_class = 'col-md-3 col-sm-6 col-xs-6';
+	if ($atts['columns'] == 3)
+		$col_class = 'col-md-4 col-sm-6 col-xs-12';
+	if ($atts['columns'] == 2)
+		$col_class = 'col-md-6 col-sm-6 col-xs-12';
+
+	ob_start();
+	?>
+
+	<div class="widget madara-child-completed-manga">
+
+		<?php if (!empty($atts['title'])): ?>
+			<h2 class="widget-title heading-style-1">
+				<span><?php echo esc_html($atts['title']); ?></span>
+			</h2>
+		<?php endif; ?>
+
+		<div class="img_heading">
+			<img decoding="async" src="https://vitaminkoo.com/wp-content/themes/gdcv/img/HT.png">
+		</div>
+
+		<?php if ($q->have_posts()): ?>
+
+			<div class="c-blog-listing mad-new-updates-widget-grid">
+				<div class="c-blog-grid">
+					<div class="row">
+
+						<?php
+						while ($q->have_posts()):
+							$q->the_post();
+
+							set_query_var('madara_widget_settings', [
+								'show_badges' => (bool) $atts['show_badges'],
+								'show_chapter_count' => (bool) $atts['show_chapter_count'],
+								'show_update_date' => (bool) $atts['show_update_date'],
+								'col_class' => $col_class,
+								'style' => $atts['style'],
+							]);
+							?>
+
+							<div class="<?php echo esc_attr($col_class); ?> page-listing-item internal-widget">
+								<div class="popular-item-wrap">
+									<?php
+									$template = ($atts['style'] === 'style-1') ? 'widgets/recent-manga/content-completed' : 'widgets/recent-manga/content-2';
+									$wp_manga_template->load_template($template, false);
+									?>
+								</div>
+							</div>
+
+						<?php endwhile; ?>
+
+					</div>
+				</div>
+			</div>
+
+			<?php if (!empty($atts['button_text'])): ?>
+				<div class="view-more">
+					<a href="<?php echo esc_url($atts['button_url']); ?>">
+						<?php echo esc_html($atts['button_text']); ?>
+					</a>
+				</div>
+			<?php endif; ?>
+
+			<?php wp_reset_postdata(); ?>
+
+		<?php else: ?>
+			<p>Không có truyện hoàn thành nào.</p>
+		<?php endif; ?>
+
+	</div>
+
+	<?php
+	return ob_get_clean();
+});

@@ -733,7 +733,7 @@ body.page .c-page-content .c-page .c-page__content .page-content-listing .page-l
 
 .mad-pagination .page-numbers {
     border-radius: 50%;
-    background-color: #f3f3f3;
+    background-color: transparent;
     padding: 7px 14px;
     border: none;
     font-weight: 600;
@@ -747,5 +747,5 @@ body.page .c-page-content .c-page .c-page__content .page-content-listing .page-l
 
 .mad-pagination .page-numbers.next,
 .mad-pagination .page-numbers.prev {
-    background-color: #f3f3f3;
+    background-color: transparent;
 }

@@ -230,7 +230,7 @@ add_shortcode('manga_new_updates', function ($atts) {
 						'format' => '?paged=%#%',
 						'current' => max(1, $paged),
 						'total' => $q->max_num_pages,
-						'mid_size' => 1,  // ← GIẢM XUỐNG 1 để dễ xuất hiện dots
+						'mid_size' => 2,  // ← GIẢM XUỐNG 1 để dễ xuất hiện dots
 						'end_size' => 1,  // ← Giữ nguyên 1
 						'prev_text' => '<i class="icon ion-ios-arrow-back"></i>',
 						'next_text' => '<i class="icon ion-ios-arrow-forward"></i>',

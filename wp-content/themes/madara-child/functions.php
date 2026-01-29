@@ -223,7 +223,7 @@ add_shortcode('manga_new_updates', function ($atts) {
 			</div>
 
 			<?php if ($atts['pagination']): ?>
-				<div class="mad-pagination text-center">
+				<div class="mad-pagination text-left">
 					<?php
 					echo paginate_links([
 						'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),

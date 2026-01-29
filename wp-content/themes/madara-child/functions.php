@@ -250,3 +250,114 @@ add_shortcode('manga_new_updates', function ($atts) {
 	<?php
 	return ob_get_clean();
 });
+
+/**
+ * Shortcode: [madara_vitaminkoo_ranking]
+ * Bảng xếp hạng manga theo Daily/Weekly/Monthly
+ */
+function madara_vitaminkoo_ranking_shortcode()
+{
+	ob_start(); ?>
+
+	<div class="widget col-12 col-md-12 default no-icon heading-style-1 c-popular manga-widget widget-manga-tab">
+		<div class="widget__inner c-popular manga-widget widget-manga-tab__inner c-widget-wrap">
+			<div class="widget-content">
+
+				<div class="img_heading">
+					<img src="https://vitaminkoo.com/wp-content/themes/gdcv/img/BXH.png">
+				</div>
+
+				<div class="manga-tab">
+					<ul class="nav nav-tabs">
+						<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#today_rank">Hôm nay</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#week_rank">Tuần Này</a></li>
+						<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#month_rank">Tháng Này</a></li>
+					</ul>
+
+					<div class="tab-content">
+
+							<?php
+							$tabs = [
+								'today_rank' => 'day',
+								'week_rank' => 'week',
+								'month_rank' => 'month'
+							];
+
+							foreach ($tabs as $tab_id => $time_key):
+								?>
+
+									<div id="<?php echo $tab_id; ?>"
+								class="tab-pane <?php echo $time_key === 'day' ? 'active' : ''; ?>">
+								<div class="c-widget-content style-1">
+
+											<?php
+											// Primary query: time-specific views
+											$args = [
+												'post_type' => 'wp-manga',
+												'posts_per_page' => 5,
+												'meta_key' => "_wp_manga_{$time_key}_views_value",
+												'orderby' => 'meta_value_num',
+												'order' => 'DESC'
+											];
+
+											$query = new WP_Query($args);
+
+											// Fallback: if no results, use total views
+											if (!$query->have_posts()) {
+												$args['meta_key'] = '_wp_manga_views';
+												$query = new WP_Query($args);
+											}
+
+											// Fallback 2: if still no results, order by modified date
+											if (!$query->have_posts()) {
+												unset($args['meta_key']);
+												$args['orderby'] = 'modified';
+												$query = new WP_Query($args);
+											}
+											$rank = 1;
+
+											while ($query->have_posts()):
+												$query->the_post();
+												$thumb = get_the_post_thumbnail_url(get_the_ID(), 'manga_wg_post_1');
+												$genres = get_the_term_list(get_the_ID(), 'wp-manga-genre', '', ', ');
+												?>
+													<div class="popular-item-wrap">
+														<div class="ctr"><?php echo $rank; ?></div>
+
+														<div class="popular-img widget-thumbnail c-image-hover">
+															<a href="<?php the_permalink(); ?>">
+																<img src="<?php echo esc_url($thumb); ?>">
+															</a>
+														</div>
+
+														<div class="popular-content">
+															<h5 class="widget-title">
+																<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+															</h5>
+
+															<span class="text">
+																<strong>Thể loại:</strong> <?php echo $genres; ?>
+															</span>
+														</div>
+													</div>
+
+													<?php $rank++; endwhile;
+											wp_reset_postdata(); ?>
+
+										</div>
+									</div>
+
+							<?php endforeach; ?>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<?php
+		return ob_get_clean();
+}
+add_shortcode('madara_vitaminkoo_ranking', 'madara_vitaminkoo_ranking_shortcode');

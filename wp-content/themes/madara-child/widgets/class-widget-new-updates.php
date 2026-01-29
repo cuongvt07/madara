@@ -50,7 +50,7 @@ class Madara_Child_Widget_New_Updates extends WP_Widget
             echo '<div class="img_heading"><img decoding="async" src="https://vitaminkoo.com/wp-content/themes/gdcv/img/MCN.png"></div>';
         }
 
-        if (false !== $cached_output && !is_user_logged_in() && !$this->is_debug()) {
+        if (false !== $cached_output && !is_user_logged_in() && !$this->is_debug() && false) { // Cache disabled for testing
             echo $cached_output;
             echo $args['after_widget'];
             return;
@@ -187,33 +187,34 @@ class Madara_Child_Widget_New_Updates extends WP_Widget
             </select>
         </p>
         <p>
-            <input class="checkbox" type="checkbox" <?php checked($show_badges); ?> id="
-    <?php echo esc_attr($this->get_field_id('show_badges')); ?>" name="
-    <?php echo esc_attr($this->get_field_name('show_badges')); ?>" />
+        <p>
+            <input class="checkbox" type="checkbox" <?php checked($show_badges); ?>
+                id="<?php echo esc_attr($this->get_field_id('show_badges')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('show_badges')); ?>" />
             <label for="<?php echo esc_attr($this->get_field_id('show_badges')); ?>">
                 <?php esc_html_e('Show HOT/NEW Badge', 'madara'); ?>
             </label>
         </p>
         <p>
-            <input class="checkbox" type="checkbox" <?php checked($show_chapter_count); ?> id="
-    <?php echo esc_attr($this->get_field_id('show_chapter_count')); ?>" name="
-    <?php echo esc_attr($this->get_field_name('show_chapter_count')); ?>" />
+            <input class="checkbox" type="checkbox" <?php checked($show_chapter_count); ?>
+                id="<?php echo esc_attr($this->get_field_id('show_chapter_count')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('show_chapter_count')); ?>" />
             <label for="<?php echo esc_attr($this->get_field_id('show_chapter_count')); ?>">
                 <?php esc_html_e('Show Chapter Count', 'madara'); ?>
             </label>
         </p>
         <p>
-            <input class="checkbox" type="checkbox" <?php checked($show_update_date); ?> id="
-    <?php echo esc_attr($this->get_field_id('show_update_date')); ?>" name="
-    <?php echo esc_attr($this->get_field_name('show_update_date')); ?>" />
+            <input class="checkbox" type="checkbox" <?php checked($show_update_date); ?>
+                id="<?php echo esc_attr($this->get_field_id('show_update_date')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('show_update_date')); ?>" />
             <label for="<?php echo esc_attr($this->get_field_id('show_update_date')); ?>">
                 <?php esc_html_e('Show Update Date', 'madara'); ?>
             </label>
         </p>
         <p>
-            <input class="checkbox" type="checkbox" <?php checked($enable_pagination); ?> id="
-    <?php echo esc_attr($this->get_field_id('enable_pagination')); ?>" name="
-    <?php echo esc_attr($this->get_field_name('enable_pagination')); ?>" />
+            <input class="checkbox" type="checkbox" <?php checked($enable_pagination); ?>
+                id="<?php echo esc_attr($this->get_field_id('enable_pagination')); ?>"
+                name="<?php echo esc_attr($this->get_field_name('enable_pagination')); ?>" />
             <label for="<?php echo esc_attr($this->get_field_id('enable_pagination')); ?>">
                 <?php esc_html_e('Enable Pagination', 'madara'); ?>
             </label>
@@ -252,15 +253,17 @@ class Madara_Child_Widget_New_Updates extends WP_Widget
         $total_pages = $query->max_num_pages;
         if ($total_pages > 1) {
             $current_page = $paged;
-            echo '<div class="mad-pagination text-center">';
-            echo paginate_links(array(
+            echo '<div class="mad-pagination text-right">';
+            echo paginate_links([
                 'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
                 'format' => '?paged=%#%',
-                'current' => max(1, $current_page),
+                'current' => max(1, $paged),
                 'total' => $total_pages,
+                'mid_size' => 2,    // ← Số trang hiển thị bên trái/phải trang hiện tại
+                'end_size' => 1,    // ← Số trang hiển thị ở đầu và cuối
                 'prev_text' => '<i class="icon ion-ios-arrow-back"></i>',
                 'next_text' => '<i class="icon ion-ios-arrow-forward"></i>',
-            ));
+            ]);
             echo '</div>';
         }
     }

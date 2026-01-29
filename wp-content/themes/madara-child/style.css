@@ -710,3 +710,42 @@ body.page .c-page-content .c-page .c-page__content .page-content-listing .page-l
 .post-title.font-title {
     margin-bottom: 6px;
 }
+
+/* Pagination Styles */
+/* Pagination Styles */
+.mad-pagination {
+    margin-top: 48px;
+    text-align: right;
+}
+
+.mad-pagination .page-numbers.current {
+    color: #945422 !important;
+    background-color: #ffe7cc !important;
+}
+
+.mad-pagination .page-numbers:not(:hover) {
+    color: #888888;
+}
+
+.mad-pagination .current {
+    color: #333333 !important;
+}
+
+.mad-pagination .page-numbers {
+    border-radius: 50%;
+    background-color: #f3f3f3;
+    padding: 7px 14px;
+    border: none;
+    font-weight: 600;
+    display: inline-block;
+    -webkit-transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+    margin-left: 5px;
+}
+
+.mad-pagination .page-numbers.next,
+.mad-pagination .page-numbers.prev {
+    background-color: #f3f3f3;
+}

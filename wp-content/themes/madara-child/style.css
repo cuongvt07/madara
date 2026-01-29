@@ -749,3 +749,9 @@ body.page .c-page-content .c-page .c-page__content .page-content-listing .page-l
 .mad-pagination .page-numbers.prev {
     background-color: transparent;
 }
+
+.mad-pagination,
+.mad-pagination.text-left,
+.mad-pagination.text-right {
+    text-align: right !important;
+}

@@ -253,7 +253,7 @@ class Madara_Child_Widget_New_Updates extends WP_Widget
         $total_pages = $query->max_num_pages;
         if ($total_pages > 1) {
             $current_page = $paged;
-            echo '<div class="mad-pagination text-left">';
+            echo '<div class="mad-pagination text-right">';
             echo paginate_links([
                 'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
                 'format' => '?paged=%#%',

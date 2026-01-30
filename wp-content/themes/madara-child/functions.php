@@ -478,3 +478,139 @@ add_shortcode('madara_vitaminkoo_completed', function ($atts) {
 	<?php
 	return ob_get_clean();
 });
+
+/*************************************************
+ * CUSTOM FOOTER BLOCK ADMIN + MEDIA PICKER
+ *************************************************/
+
+add_action('admin_menu', function () {
+	add_theme_page(
+		'Custom Footer Block',
+		'Custom Footer Block',
+		'manage_options',
+		'custom-footer-block',
+		'render_custom_footer_admin'
+	);
+});
+
+add_action('admin_init', function () {
+	register_setting('custom_footer_settings', 'custom_footer_image');
+	register_setting('custom_footer_settings', 'custom_footer_text');
+});
+
+add_action('admin_enqueue_scripts', function ($hook) {
+	if ($hook !== 'appearance_page_custom-footer-block')
+		return;
+	wp_enqueue_media();
+});
+
+function render_custom_footer_admin()
+{
+	$image = get_option('custom_footer_image');
+	$text = get_option('custom_footer_text');
+	?>
+	<div class="wrap">
+		<h1>Custom Footer Block</h1>
+
+		<form method="post" action="options.php">
+			<?php settings_fields('custom_footer_settings'); ?>
+
+			<table class="form-table">
+
+				<tr>
+					<th>Footer Image URL</th>
+					<td>
+						<input type="hidden" name="custom_footer_image" id="custom_footer_image"
+							value="<?php echo esc_attr($image); ?>">
+
+						<button type="button" class="button" id="upload_footer_image">
+							Select Image
+						</button>
+
+						<div style="margin-top:12px;">
+							<img id="footer_image_preview" src="<?php echo esc_url($image); ?>"
+								style="max-width:240px;border-radius:12px;">
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th>Footer Content</th>
+					<td>
+						<textarea name="custom_footer_text" rows="7" style="width:100%;"><?php
+						echo esc_textarea($text);
+						?></textarea>
+						<p class="description">HTML allowed</p>
+					</td>
+				</tr>
+
+			</table>
+
+			<?php submit_button(); ?>
+		</form>
+	</div>
+
+	<script>
+		jQuery(document).ready(function ($) {
+			$('#upload_footer_image').on('click', function (e) {
+				e.preventDefault();
+
+				const frame = wp.media({
+					title: 'Select Footer Image',
+					button: { text: 'Use this image' },
+					multiple: false
+				});
+
+				frame.on('select', function () {
+					const attachment = frame.state().get('selection').first().toJSON();
+					$('#custom_footer_image').val(attachment.url);
+					$('#footer_image_preview').attr('src', attachment.url);
+				});
+
+				frame.open();
+			});
+		});
+	</script>
+	<?php
+}
+
+// 5️⃣ Hide default Madara footer visually
+add_action('wp_head', function () {
+	echo '<style>.site-footer { display:none !important; }</style>';
+});
+
+add_action('get_footer', function () {
+
+	if (is_404())
+		return;
+
+	$image = get_option('custom_footer_image') ?: 'https://vitaminkoo.com/wp-content/themes/gdcv/img/footer.png';
+
+	echo '
+	<div class="custom-footer-image-block">
+		<div class="container">
+			<img src="' . esc_url($image) . '" loading="lazy" class="footer-top-image">
+		</div>
+	</div>';
+});
+
+
+add_action('wp_footer', function () {
+
+	if (is_404())
+		return;
+
+	$text = get_option('custom_footer_text') ?: '
+		Các thông tin và hình ảnh được đăng tải trên website đều được sưu tầm từ Internet, bao gồm quyền sử dụng phi thương mại và có phí. 
+		Chúng tôi không sở hữu hay chịu trách nhiệm đối với bất kỳ nội dung hoặc hình ảnh nào trên trang web. 
+		Nếu có nội dung nào ảnh hưởng đến cá nhân hay tổ chức, vui lòng liên hệ Telegram 
+		<strong>@gdcvvitaminkoo</strong>.
+	';
+
+	echo '
+	<footer class="custom-footer-text-block">
+		<div class="container">
+			<div class="note text-justify">' . wp_kses_post($text) . '</div>
+		</div>
+	</footer>';
+});

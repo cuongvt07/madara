@@ -796,12 +796,92 @@ body.page .c-page-content .c-page .c-page__content .page-content-listing .page-l
     margin-top: 15px;
 }
 
+
 /* Popular Item Wrap */
 .widget.c-popular .popular-item-wrap {
     position: relative;
     border-bottom: 1px solid #ebebeb;
     padding-bottom: 20px;
     margin-bottom: 20px;
+}
+
+
+
+/* --- Footer Customization --- */
+
+/* Wrapper for the whole section - Orange Gradient Background */
+.footer-notification-wrap {
+    padding: 50px 0 40px;
+    /* Top padding for mascot overlap space */
+    background: linear-gradient(180deg, #fff7e6 0%, #ffccbc 100%);
+    position: relative;
+}
+
+/* The Content Box - Light Cream/White */
+.notification-inner {
+    position: relative;
+    /* max-width removed to let container control width */
+    background: #fffbf5;
+    /* Light cream */
+    border-radius: 15px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    /* Subtle shadow */
+    border: 1px solid #ffeacc;
+    margin-top: 0;
+    /* Bootstrap container has auto margin, ensure top is clean */
+}
+
+/* The Mascot/Badge - Floating Top Left */
+.notification-mascot {
+    position: absolute;
+    top: -25px;
+    /* Pull it up to sit on the edge */
+    left: 0;
+    /* Align left edge of container */
+    z-index: 10;
+}
+
+.mascot-placeholder {
+    display: inline-block;
+    background: #ffaa6e;
+    /* Match theme orange */
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 20px 20px 20px 0;
+    /* Chat bubble shape */
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+}
+
+/* Text Content */
+.notification-content p {
+    margin: 0;
+    font-size: 13px;
+    color: #6d6d6d;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.notification-content p strong {
+    color: #d84315;
+    /* Dark orange highlight */
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+    .notification-inner {
+        margin: 0 15px;
+        padding: 20px;
+    }
+
+    .notification-mascot {
+        left: 30px;
+        top: -20px;
+    }
 }
 
 /* Rank Counter */
@@ -869,4 +949,96 @@ body.page .c-page-content .c-page .c-page__content .page-content-listing .page-l
     /* Slightly darker on hover */
     color: #333;
     text-decoration: none;
+}
+
+/* ===== CUSTOM FOOTER BLOCK STYLE ===== */
+
+/* 1. Footer Container (The bottom block with background) */
+.footer-container {
+    background: linear-gradient(180deg, #fff7e6 0%, #ffccbc 100%);
+    padding: 30px 0 40px;
+    margin-top: -65px;
+    /* Pull up to let image overlap */
+    position: relative;
+    z-index: 1;
+    /* Below image */
+}
+
+/* 2. Footer Image (The top block) */
+.footer-image.container {
+    position: relative;
+    z-index: 10;
+    /* Above footer background */
+    pointer-events: none;
+    /* Let clicks pass through if needed */
+}
+
+.footer-image img {
+    max-width: 240px;
+    /* "be bé thôi" */
+    height: auto;
+    display: block;
+    margin-bottom: 0;
+    /* Remove old negative margins as we use container margin now */
+}
+
+/* 3. Content Styling */
+.footer-menu .note {
+    background: #fffbf5;
+    border-radius: 22px;
+    padding: 26px 30px;
+    color: #8a6a54;
+    font-size: 14px;
+    line-height: 1.7;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ffeacc;
+    text-align: justify;
+    margin-top: 35px;
+    /* Space for the image overlap area inside */
+}
+
+.footer-menu strong {
+    color: #d84315;
+}
+
+/* Full width override for footer container if needed */
+.site-footer+.footer-container {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .footer-container {
+        padding: 50px 16px 40px;
+        margin-top: -50px;
+    }
+
+    .footer-menu .note {
+        font-size: 13px;
+        padding: 20px;
+    }
+}
+
+img.footer-top-image {
+    margin-bottom: -1px;
+    max-width: 150px;
+}
+
+footer.custom-footer-text-block {
+    padding: 32px 0 10px;
+    background: linear-gradient(#ffcba3 40%, #ffedd7);
+}
+
+footer.custom-footer-text-block .note {
+    background: #fffbf5;
+    border-radius: 22px;
+    padding: 26px 30px;
+    color: #8a6a54;
+    font-size: 14px;
+    line-height: 1.7;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ffeacc;
+    text-align: justify;
+    margin-bottom: 35px;
 }

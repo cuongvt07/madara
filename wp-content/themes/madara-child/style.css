@@ -1042,3 +1042,23 @@ footer.custom-footer-text-block .note {
     text-align: justify;
     margin-bottom: 35px;
 }
+
+/* Force 2 columns on mobile for custom manga widgets */
+@media (max-width: 767px) {
+
+    .mad-new-updates-widget-grid .page-listing-item,
+    .madara-child-completed-manga .page-listing-item {
+        width: 50% !important;
+        float: left !important;
+        clear: none !important;
+    }
+
+    /* Ensure rows don't break layout */
+    .mad-new-updates-widget-grid .row,
+    .madara-child-completed-manga .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    /* Clear every 2nd item if using float, but flex handles wrapping */
+}
